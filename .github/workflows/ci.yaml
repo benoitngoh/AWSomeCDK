@@ -1,7 +1,7 @@
 name: Deploy To AWS
 
 on:
-  push:
+  merge:
     branch:
       - main
 
