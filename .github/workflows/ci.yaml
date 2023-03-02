@@ -15,7 +15,7 @@ jobs:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::123456789100:role/my-github-actions-role
+          role-to-assume: arn:aws:iam::771500531194:role/GithubActionSetUpRolestaging
           role-session-name: githubactions
           aws-region: us-east-1
       # Run cdk diff
