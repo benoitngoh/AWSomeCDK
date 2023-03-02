@@ -23,11 +23,11 @@ jobs:
           aws-region: us-east-2
 
       - name: cdk deploy
-          uses: youyo/aws-cdk-github-actions@v2
-          with: 
-            working_dir: './cdk'
-            cdk_subcommand: 'deploy'
-            cdk_args: '--require-approval never'
+        uses: youyo/aws-cdk-github-actions@v2
+        with: 
+          working_dir: './cdk'
+          cdk_subcommand: 'deploy'
+          cdk_args: '--require-approval never'
 
             
         
