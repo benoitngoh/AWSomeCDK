@@ -1,4 +1,4 @@
-# The workflow Creates static website using aws s3
+# AWC CDK CI
 name: AWS CDK workflow
 on:
   push   
