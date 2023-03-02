@@ -1,33 +1,24 @@
-name: Deploy To AWS
-
+# Sample workflow to access AWS resources when workflow is tied to branch
+# The workflow Creates static website using aws s3
+name: AWS CDK workflow
 on:
-  push:
-    branch:
-      - main
-
+  push   
+permissions:
+      id-token: write   # This is required for requesting the JWT
+      contents: read    # This is required for actions/checkout
 jobs:
-  deploy:
+  CDKDiff:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-
     steps:
-      - name: clone the repo
-        uses: actions/checkout@v1
-
-      - name: Assume role using OIDC
-        uses: aws-actions/configure-aws-credentials@master
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::771500531194:role/GithubActionSetUpRolestaging
-          aws-region: us-east-2
-
-      - name: cdk deploy
-        uses: youyo/aws-cdk-github-actions@v2
-        with: 
-          working_dir: './cdk'
-          cdk_subcommand: 'deploy'
-          cdk_args: '--require-approval never'
-
-            
-        
+          role-to-assume: arn:aws:iam::123456789100:role/my-github-actions-role
+          role-session-name: githubactions
+          aws-region: us-east-1
+      # Run cdk diff
+      - name:  CDK Diff
+        run: |
+          cdk diff
