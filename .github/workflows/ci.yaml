@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: clone the repo
-        uses: actions/checkout@vi
+        uses: actions/checkout@v1
 
       - name: Assume role using OIDC
         uses: aws-actions/configure-aws-credentials@master
