@@ -10,11 +10,10 @@ jobs:
       contents: read
 
     steps:
-      - name: clone the repo
-        uses: actions/checkout@vi
-
-      - name: Assume role using OIDC
-        uses: aws-actions/configure-aws-credentials@master
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: arn:aws:iam::771500531194:role/GithubActionSetUpRolestaging
           aws-region: us-east-2
