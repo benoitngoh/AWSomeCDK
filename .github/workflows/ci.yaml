@@ -1,23 +1,27 @@
-# AWC CDK CI
-name: AWS CDK workflow
-on:
-  push   
-permissions:
-      id-token: write   # This is required for requesting the JWT
-      contents: read    # This is required for actions/checkout 
+name: Deploy To AWS
+
+on: push
+
 jobs:
-  cdk-diff:
+  deploy:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
     steps:
-      - name: Git clone the repository
-        uses: actions/checkout@v3
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: clone the repo
+        uses: actions/checkout@vi
+
+      - name: Assume role using OIDC
+        uses: aws-actions/configure-aws-credentials@master
         with:
           role-to-assume: arn:aws:iam::771500531194:role/GithubActionSetUpRolestaging
-          role-session-name: githubactions
-          aws-region: us-east-1
-      # Run cdk diff
-      - name:  CDK Diff
-        run: |
-          cdk diff
+          aws-region: us-east-2
+
+      - name: cdk deploy
+        uses: youyo/aws-cdk-github-actions@v2
+        with: 
+          working_dir: './cdk'
+          cdk_subcommand: 'deploy'
+          cdk_args: '--require-approval never'
